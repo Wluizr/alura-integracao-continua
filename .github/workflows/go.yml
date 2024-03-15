@@ -12,6 +12,9 @@ on:
 jobs: # aqui é as tarefas passo a passo; # Diretorio atual de trabalho (workdir = raiz)
 
   test: # rotina de execucao #passo - 1
+    strategy:
+      matrix:
+        go_version: ['1.18', '>=1.20']
     runs-on: ubuntu-latest
     steps: # passo começa com - hifen
     - uses: actions/checkout@v3
@@ -19,7 +22,7 @@ jobs: # aqui é as tarefas passo a passo; # Diretorio atual de trabalho (workdir
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.20'
+        go-version: ${{matrix.go_version}}
       
     # para que seja criada as imagens do docker
     - name: Build-DB
